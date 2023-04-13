@@ -1,0 +1,136 @@
+
+
+
+POST http://localhost:4000/api/auth/register
+Content-Type: application/json
+
+{
+    "name":"huỳnh sdsdd",
+    "phone":"253ssvgs332",
+    "password":"545"
+}
+
+
+###
+
+
+POST http://localhost:4000/api/auth/login
+Content-Type: application/json
+
+{
+    "phone":"253ssvhhgs332",
+    "password":"545"
+}
+
+
+###
+
+
+POST http://localhost:4000/api/insert
+
+
+
+###
+
+
+GET http://localhost:4000/api/category
+
+
+# =======================
+###
+
+
+GET http://localhost:4000/api/price
+
+###
+
+
+GET http://localhost:4000/api/area
+
+
+# =======================
+
+
+
+###
+
+
+GET http://localhost:4000/api/post/all 
+###
+
+
+GET http://localhost:4000/api/post/new-post 
+
+
+###
+
+GET http://localhost:4000/api/post/all?page=0&limit=3
+
+
+
+###
+
+GET http://localhost:4000/api/post/all?categoryCode=CTPT&limit=10&page=1
+
+# ===================
+###
+
+GET http://localhost:4000/api/province
+
+
+
+###
+
+
+###
+
+GET http://localhost:4000/api/post/all?limit=10&pageNumber=0&areaNumber[]=90&areaNumber[]=9999
+
+
+
+
+
+###
+
+GET http://localhost:4000/api/user/detail
+token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiMTNjNTA2MDItMDk5Ny00ZWU4LTgyZmYtNDUwY2E3YTUxNDI5IiwibmFtZSI6Imh14buzbmggc2RzZGQiLCJwYXNzd29yZCI6IiQyYSQxMCRGaC92QXFPTk40N0xIR3hHcnFKVjl1bUFlcW91QmFsZzNpRm5Db2E0Wml0czZwVEVaRFF1UyIsInBob25lIjoyNTMsInphbG8iOm51bGwsImZiVXJsIjpudWxsLCJhdmF0YXIiOm51bGwsImNyZWF0ZWRBdCI6IjIwMjMtMDQtMDRUMTQ6MTk6NTQuMDAwWiIsInVwZGF0ZWRBdCI6IjIwMjMtMDQtMDRUMTQ6MTk6NTQuMDAwWiJ9LCJpYXQiOjE2ODA2MTgzODd9.Bt-gx6ZalSmU7bdtYGXLqBPqFNitgulN_a_x6GJEtvE
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+###
+
+POST http://localhost:4000/api/post/create-post
+token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiMTNjNTA2MDItMDk5Ny00ZWU4LTgyZmYtNDUwY2E3YTUxNDI5IiwibmFtZSI6Imh14buzbmggc2RzZGQiLCJwYXNzd29yZCI6IiQyYSQxMCRGaC92QXFPTk40N0xIR3hHcnFKVjl1bUFlcW91QmFsZzNpRm5Db2E0Wml0czZwVEVaRFF1UyIsInBob25lIjoyNTMsInphbG8iOm51bGwsImZiVXJsIjpudWxsLCJhdmF0YXIiOm51bGwsImNyZWF0ZWRBdCI6IjIwMjMtMDQtMDRUMTQ6MTk6NTQuMDAwWiIsInVwZGF0ZWRBdCI6IjIwMjMtMDQtMDRUMTQ6MTk6NTQuMDAwWiJ9LCJpYXQiOjE2ODEwNDA1NTh9.eXcKaGgg3gMKeABDJiGN2Xht7Ak1fjz_CDu4B9WyEF8
+Content-Type: application/json
+
+{
+"categoryCode":"CTMB",
+"title":"Tiêu đề 33",
+"priceNumber":0.022222,
+"images":"[\"https://res.cloudinary.com/dmcewmxyx/image/upload/v1681040202/phongtro123/wwryepzazsf8yoomghjb.jpg\",\"https://res.cloudinary.com/dmcewmxyx/image/upload/v1681040204/phongtro123/im5aomsxbpglm7pqv7cp.jpg\",\"https://res.cloudinary.com/dmcewmxyx/image/upload/v1681040207/phongtro123/k0jqatvyjpucfkntrkbq.jpg\",\"https://res.cloudinary.com/dmcewmxyx/image/upload/v1681040212/phongtro123/pftljpng1sjpwvea6o1a.jpg\"]",
+"address":"Huyện Bù Gia Mập, Tỉnh Bình Phước",
+"priceCode":"E1OUDDDDD",
+"areaCode":"NRTTTTTTT",
+"description":"Nội dung mô tả",
+"target":"Nam",
+"province":"Tỉnh Bình Phước",
+"category":"Cho thuê mặt bằng",
+"areaNumber":2334234
+}
+
+###
+
+GET http://localhost:4000/api/post/admin-post
+token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiYjA0MDFhZjUtZTY5YS00ODBmLWEzZjQtMDVkYzRlNjczNjcwIiwibmFtZSI6IsSQYXQgUGjhuqFtIiwicGFzc3dvcmQiOiIkMmEkMTAkLjZxZkpYTHIyNGhlYVpmSzZHTGNTT29hckpFbjVLSlYxVkU2T1hPOWVPODJFZEd0ZXU2RG0iLCJwaG9uZSI6ODE3NDQyOTQ4LCJ6YWxvIjpudWxsLCJmYlVybCI6bnVsbCwiYXZhdGFyIjpudWxsLCJjcmVhdGVkQXQiOiIyMDIzLTA0LTEwVDA0OjQ0OjQ1LjAwMFoiLCJ1cGRhdGVkQXQiOiIyMDIzLTA0LTEwVDA0OjQ0OjQ1LjAwMFoifSwiaWF0IjoxNjgxMTAxODkzfQ.dle6tNOpNYa-8-OyG3Zlvkh5h6T4LqSglB9UDfvnISc
