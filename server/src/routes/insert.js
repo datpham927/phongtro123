@@ -34,7 +34,7 @@ router.post("/insert", async (req, res) => {
     //     let currentArea = getNumberFromString(e?.header?.attributes?.acreage);
     //     let currentPrice = getNumberFromString(e?.header?.attributes?.price);
 
-    //     await db.Province.findOrCreate({
+    //     await db.Province?.findOrCreate({
     //       where: { code: provinceCode },
     //       defaults: {
     //         code: provinceCode,
@@ -44,12 +44,12 @@ router.post("/insert", async (req, res) => {
 
     //     await db.User.create({
     //       id: userId,
-    //       name: e.contact.content.find((item) => item.name === "Liên hệ:")
+    //       name: e.contact.content?.find((item) => item.name === "Liên hệ:")
     //         .content,
     //       password: hashPassword("234434443"),
-    //       phone: e.contact.content.find((item) => item.name === "Điện thoại:")
+    //       phone: e.contact.content?.find((item) => item.name === "Điện thoại:")
     //         .content,
-    //       zalo: e.contact.content.find((item) => item.name === "Zalo").content,
+    //       zalo: e.contact.content?.find((item) => item.name === "Zalo").content,
     //       fbUrl: "does not exists",
     //       avatar:
     //         "https://p16-sign-va.tiktokcdn.com/tos-useast2a-avt-0068-giso/66e2e0e2f044043eeb2c780d3b06102c~c5_100x100.jpeg?x-expires=1680004800&x-signature=3807gk6%2Fgil%2FmMBd7F8zEpTIDYI%3D",
@@ -68,10 +68,10 @@ router.post("/insert", async (req, res) => {
     //       overviewId,
     //       imagesId,
 
-    //       areaCode: dataArea.find(
+    //       areaCode: dataArea?.find(
     //         (area) => area.max > currentArea && area.min <= currentArea
     //       )?.code,
-    //       priceCode: dataPrice.find(
+    //       priceCode: dataPrice?.find(
     //         (area) => area.max > currentPrice && area.min <= currentPrice
     //       )?.code,
     //       priceNumber: getNumberFromStringV2(e?.header?.attributes?.price),
@@ -87,21 +87,21 @@ router.post("/insert", async (req, res) => {
     //     });
     //     await db.Overview.create({
     //       id: overviewId,
-    //       code: e.overview.content.find((item) => item.name === "Mã tin:")
+    //       code: e.overview.content?.find((item) => item.name === "Mã tin:")
     //         .content,
-    //       area: e.overview.content.find((item) => item.name === "Khu vực")
+    //       area: e.overview.content?.find((item) => item.name === "Khu vực")
     //         .content,
-    //       type: e.overview.content.find((item) => item.name === "Loại tin rao:")
+    //       type: e.overview.content?.find((item) => item.name === "Loại tin rao:")
     //         .content, //diện tích
-    //       target: e.overview.content.find(
+    //       target: e.overview.content?.find(
     //         (item) => item.name === "Đối tượng thuê:"
     //       ).content,
-    //       created: e.overview.content.find((item) => item.name === "Ngày đăng:")
+    //       created: e.overview.content?.find((item) => item.name === "Ngày đăng:")
     //         .content, //hết hạn
 
-    //       bonus: e.overview.content.find((item) => item.name === "Gói tin:")
+    //       bonus: e.overview.content?.find((item) => item.name === "Gói tin:")
     //         .content,
-    //       expire: e.overview.content.find(
+    //       expire: e.overview.content?.find(
     //         (item) => item.name === "Ngày hết hạn:"
     //       ).content,
     //     });
@@ -109,7 +109,7 @@ router.post("/insert", async (req, res) => {
     //       id: imagesId,
     //       image: JSON.stringify(e.images),
     //     });
-    //     await db.Label.findOrCreate({
+    //     await db.Label?.findOrCreate({
     //       where: { code: labelCode },
     //       defaults: {
     //         id: labelCode,

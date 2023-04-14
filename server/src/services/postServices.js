@@ -14,7 +14,7 @@ const getAllPostService = async (limit, page, areaNumber, priceNumber, query) =>
           queries.areaNumber = { [Op.between]: areaNumber };
         if (priceNumber?.length > 0)
           queries.priceNumber = { [Op.between]: priceNumber };
-        const response = await db.Post.findAndCountAll({
+        const response = await db.Post?.findAndCountAll({
           raw: true,
           nest: true,
           where: [queries],
@@ -42,7 +42,7 @@ const getAllPostService = async (limit, page, areaNumber, priceNumber, query) =>
           data: response,
         });
       }
-      const response = await db.Post.findAndCountAll({
+      const response = await db.Post?.findAndCountAll({
         raw: true,
         nest: true,
         include: [
@@ -76,7 +76,7 @@ const getAllPostService = async (limit, page, areaNumber, priceNumber, query) =>
 const getNewPosts = async () =>
   new Promise(async (resolve, reject) => {
     try {
-      const response = await db.Post.findAll({
+      const response = await db.Post?.findAll({
         raw: true,
         nest: true,
         limit: 10,
@@ -121,7 +121,6 @@ const createNewPosts = async (body, user) =>
         id: labelCode,
       });
 
-      console.log("userId", userId);
       await db.Post.create({
         id: v4(),
         title: body?.title,
@@ -168,7 +167,7 @@ const createNewPosts = async (body, user) =>
         image: body?.images,
       });
 
-      await db.Province.findOrCreate({
+      await db.Province?.findOrCreate({
         where: {
           [Op.and]: [
             { value: body?.province.replace("Thành phố", "") },
@@ -198,7 +197,7 @@ const createNewPosts = async (body, user) =>
 const getAllPostAdmin = async (id) =>
   new Promise(async (resolve, reject) => {
     try {
-      const response = await db.Post.findAndCountAll({
+      const response = await db.Post?.findAndCountAll({
         raw: true,
         nest: true,
         where: [{ userId: id }],
@@ -219,16 +218,7 @@ const getAllPostAdmin = async (id) =>
             as: "overview",
           },
         ],
-        attributes: [
-          "id",
-          "title",
-          "star",
-          "labelCode",
-          "description",
-          "areaNumber",
-          "priceNumber",
-          "address"
-        ],
+
       });
       resolve({
         err: 0,
@@ -242,9 +232,155 @@ const getAllPostAdmin = async (id) =>
       });
     }
   });
+
+const updatePost = async ({ postId, overviewId, attributesId, provinceCode, labelCode, imagesId, ...body }) => new Promise(async (resole, reject) => {
+  try {
+    await db.Label.update({
+      code: body?.title,
+      value: body?.category,
+
+    }, {
+      where: { id: labelCode }
+    });
+    await db.Post.update({
+      title: body?.title,
+      labelCode,
+      address: body?.address,
+      attributesId,
+      categoryCode: body?.categoryCode,
+      description: body?.description,
+      overviewId,
+      imagesId,
+      areaCode: body?.areaCode,
+      priceCode: body?.priceCode,
+      priceNumber: body?.priceNumber,
+      areaNumber: body?.areaNumber,
+      provinceCode,
+    }, {
+      where: {
+        id: postId,
+      }
+    }
+    );
+    await db.Attribute.update({
+      id: attributesId,
+      price:
+        body?.priceNumber < 1
+          ? `${new Intl.NumberFormat().format(
+            body?.priceNumber * 1000000
+          )} đồng/tháng`
+          : `${new Intl.NumberFormat().format(
+            body?.priceNumber
+          )} triệu/tháng`,
+      acreage: `${body?.areaNumber} m2`, //diện tích,
+    }, {
+      where: {
+        id: attributesId,
+      }
+    });
+    const response=await db.Overview.update({
+      area: body?.province,
+      type: body?.category, //diện tích
+      target: body?.target,
+    }, {
+      where: {
+        id: overviewId,
+      }
+    });
+    console.log(response)
+
+    await db.Image.update({
+      image: body?.images,
+    }, {
+      where: {
+        id: overviewId,
+      }
+    });
+    await db.Province?.findOrCreate({
+      where: {
+        [Op.and]: [
+          { value: body?.province.replace("Thành phố", "") },
+          { value: body?.province.replace("Tỉnh", "") },
+        ],
+      },
+      defaults: {
+        code: provinceCode,
+        value: body?.province.includes("Thành phố")
+          ? body?.province.replace("Thành phố", "")
+          : body?.province.replace("Tỉnh", ""),
+      },
+    });
+    resole({
+      err: 0,
+      message: "update successfully"
+    })
+  } catch (error) {
+    reject({
+      err: 0,
+      message: error.message
+    })
+  }
+
+
+})
+
+const deletePost = async (postId) => new Promise(async (resolve, reject) => {
+  try {
+    const response  =await db.Post.destroy({
+      where: {
+        id: postId
+      }
+    })
+    resolve({
+      err: response==1? 0:1,
+      message: response==1?"Delete successfully":"Delete failed"
+    })
+  } catch (error) {
+    reject({
+      err: 1,
+      message: error.message
+    })
+  }
+})
+
+
+const getDetailPost = async (postId) => new Promise(async (resolve, reject) => {
+  try {
+    console.log(postId)
+    const response  =await db.Post.findOne({
+      raw: true,
+      nest: true,
+      where: {
+        id: postId
+      },
+      include: [
+        {  model: db.Attribute, as:"attributes"},
+        { model: db.Image, as: "images", attributes: ["image"] },
+        { model: db.Overview, as: "overview"},
+        { model: db.User, as: "user"},
+      ],
+    })
+    resolve({
+      err: response ? 0:1,
+      message: response ?"Oke":"Error",
+      data:response
+    })
+  } catch (error) {
+    reject({
+      err: 1,
+      message: error.message
+    })
+  }
+})
+
+
+
 module.exports = {
   getAllPostService,
   getNewPosts,
   createNewPosts,
   getAllPostAdmin,
+  updatePost,
+  deletePost,
+  getDetailPost
 };

@@ -5,7 +5,7 @@ import { useLocation } from "react-router-dom";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { convertVietnamese } from "../../utils/format/convertVietnamese";
-import { apiPost } from "../../services/portSercives";
+import { apiPost } from "../../services/portServices";
 import {
   setListPost,
   setPostFilterCode,
@@ -22,7 +22,7 @@ function RentalMotelPage() {
     dispatch(setPostFilterCode(""));
   }, []);
   useEffect(() => {
-    const categoryCode = categories.find(
+    const categoryCode = categories?.find(
       (e) => convertVietnamese(`/${e.value}`) === location.pathname
     )?.code;
     if (categoryCode) {

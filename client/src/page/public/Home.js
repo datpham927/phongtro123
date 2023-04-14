@@ -1,6 +1,6 @@
 import ListComponent from "../../components/ListComponent";
 import PaginationComponent from "../../components/PaginationComponent";
-import { apiPost } from "../../services/portSercives";
+import { apiPost } from "../../services/portServices";
 import { useLocation } from "react-router-dom";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -34,9 +34,7 @@ function Home() {
     <>
       <ListComponent data={listPost?.data?.rows} />
       <PaginationComponent
-        totalPage={Math.round(
-          listPost?.data?.count / process.env.REACT_APP_PAGE_LIMIT
-                             )}
+        totalPage={Math.round( listPost?.data?.count / process.env.REACT_APP_PAGE_LIMIT )}
         currentPage={listPost?.currentPage + 1}
       />
     </>

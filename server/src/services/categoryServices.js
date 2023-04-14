@@ -3,7 +3,7 @@ const db = require("../models");
 const categoryServices = async () =>
   new Promise(async (resolve, reject) => {
     try {
-      const response = await db.Category.findAll({
+      const response = await db.Category?.findAll({
         raw: true,
         attributes: ["code", "value"],
       });

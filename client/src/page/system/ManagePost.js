@@ -1,14 +1,16 @@
 import { useEffect, useState } from "react";
 import SelectAddress from "../../components/SelectAddress";
-import { apiGetPostAdmin } from "../../services/portSercives";
+import { apiDeletePost, apiGetPostAdmin } from "../../services/portServices";
 import ItemManagePost from "../../components/ItemManagePost";
 import { checkStatus } from "../../utils/checkStatus";
 import EditPostComponent from "../../components/EditPostComponent";
-import { useDispatch } from "react-redux";
-import { setDataEditPost } from "../../redux/appSlice/appSlice";
+import { useDispatch, useSelector } from "react-redux";
+import { setDataEditPost, setIsUpdate } from "../../redux/appSlice/appSlice";
+import toastMessage from "../../components/toastMessage";
 function ManagePost() {
   const [posts, setPost] = useState([]);
   const [isEdit, setIsEdit] = useState(false);
+  const {isUpload}=useSelector((state)=>state.app)
   const dispatch = useDispatch();
   useEffect(() => {
     const fetchApi = async () => {
@@ -17,8 +19,20 @@ function ManagePost() {
       setPost(response?.data?.rows);
     };
     fetchApi();
-  }, []);
-  console.log(isEdit);
+  }, [isUpload]);
+
+const handleDeletePost=async(postId)=>{
+        
+  const response=await apiDeletePost(postId)
+  if(response.err==1){
+    toastMessage(response?.message)
+  }else{
+    toastMessage(response?.message)
+    dispatch(setIsUpdate())
+  }
+}
+
+
   return (
     <div className="w-full p-6">
       <div className="flex justify-between items-center  border-solid border-b-[1px] border-gray-300 mb-6">
@@ -65,12 +79,13 @@ function ManagePost() {
                 //
                 status={checkStatus(date)}
                 onClickEdit={() => dispatch(setDataEditPost(e))}
+                onClickDelete={()=>handleDeletePost(e?.id)}
                 setIsEdit={setIsEdit}
               />
             );
           })}
         </div>
-        {isEdit && <EditPostComponent setIsEdit={setIsEdit} />}
+        {isEdit && <EditPostComponent setIsEdit={setIsEdit}  />}
       </div>
     </div>
   );

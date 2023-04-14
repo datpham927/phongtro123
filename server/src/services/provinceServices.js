@@ -3,7 +3,7 @@ const db = require("../models");
 const provinceServices = async () =>
   new Promise(async (resolve, reject) => {
     try {
-      const response = await db.Province.findAll({
+      const response = await db.Province?.findAll({
         raw: true,
         attributes: ["code", "value"],
       });

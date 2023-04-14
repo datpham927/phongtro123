@@ -5,7 +5,7 @@ import { useLocation } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { convertVietnamese } from "../../utils/format/convertVietnamese";
-import { apiPost } from "../../services/portSercives";
+import { apiPost } from "../../services/portServices";
 import { setListPost } from "../../redux/postSlice/postSlice";
 
 function RentalSpacePage() {
@@ -16,7 +16,7 @@ function RentalSpacePage() {
   const { postFilterCode, listPost } = useSelector((state) => state.post);
 
   useEffect(() => {
-    const categoryCode = categories.find(
+    const categoryCode = categories?.find(
       (e) => convertVietnamese(`/${e.value}`) === location.pathname
     )?.code;
     if (categoryCode) {

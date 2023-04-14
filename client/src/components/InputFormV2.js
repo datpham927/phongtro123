@@ -11,12 +11,12 @@ function InputFormV2({
 }) {
   return (
     <div className="flex flex-col gap-1 w-1/2">
-      <label htmlFor="input" className="font-medium text-sm">
+      <label htmlFor={name} className="font-medium text-sm">
         {label}
       </label>
       <div className="flex border-slate-300  ">
         <input
-          id="input"
+          id={name}
           className="py-1 px-2 flex-1 outline-blue-300  rounded-l-md border-solid border-[1px] border-slate-300"
           type="number"
           value={value}

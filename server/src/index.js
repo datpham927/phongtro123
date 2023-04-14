@@ -13,8 +13,8 @@ app.use(
     methods: ["POST", "GET", "PUT", "DELETE"],
   })
 );
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json({limit:"10mb"}));
+app.use(bodyParser.urlencoded({ extended: true ,limit:"10mb"}));
 
 routes(app);
 connectDatabase();

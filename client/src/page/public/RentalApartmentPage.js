@@ -1,14 +1,14 @@
 import ListComponent from "../../components/ListComponent";
 import PaginationComponent from "../../components/PaginationComponent";
 import { useLocation } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { convertVietnamese } from "../../utils/format/convertVietnamese";
-import { apiPost } from "../../services/portSercives";
 import {
   setListPost,
   setPostFilterCode,
 } from "../../redux/postSlice/postSlice";
+import { apiPost } from "../../services/portServices";
 
 function RentalApartmentPage() {
   const dispatch = useDispatch();

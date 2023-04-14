@@ -7,10 +7,12 @@ export const path = {
   CHO_THUE_MAT_BANG: "/cho-thue-mat-bang",
   NHA_CHO_THUE: "/nha-cho-thue",
   CHO_THUE_PHONG_TRO: "/cho-thue-phong-tro",
-  DETAL_POST__TITLE__POSTID: "chi-tiet/:title/:postId",
   SYSTEM: "/he-thong",
   CREATE_POST: "tao-moi-bai-dang",
   MANAGE_POST: "quan-ly-bai-dang",
+  EDIT_ACCOUNT:"thong-tin-tai-khoan",
+  DETAIL_POST__TITLE__POSTID: "chi-tiet/:title/:postId",
+  DETAIL:"/chi-tiet/",
 };
 
 export const titleHomePage = {
