@@ -3,7 +3,7 @@ const db = require("../models");
 const areaServices = async () =>
   new Promise(async (resolve, reject) => {
     try {
-      const response = await db.Area.findAll({
+      const response = await db.Area?.findAll({
         raw: true,
         attributes: ["code", "value", "order"],
         order: [

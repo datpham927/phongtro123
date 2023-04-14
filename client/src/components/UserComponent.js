@@ -10,7 +10,7 @@ function UserComponent() {
         src={`${
           user?.avatar
             ? user?.avatar
-            : "https://tse4.mm.bing.net/th?id=OIP.oIV5BZLeIRubFFQP5fJ0PwHaHa&pid=Api&P=0"
+            : "https://phongtro123.com/images/default-user.png"
         }`}
         alt=""
       />

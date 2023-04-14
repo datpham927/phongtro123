@@ -47,7 +47,6 @@ const getApiPublicDistrict = async (district) => {
   }
 };
 const getApiUploadImage = async (formData) => {
-  console.log("formData", formData);
   try {
     const response = await await axios({
       method: "post",

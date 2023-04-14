@@ -1,30 +1,35 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { BallTriangle } from "react-loader-spinner";
 import { getApiUploadImage } from "../services/app";
 import InputForm from "./InputForm";
 import InputFormV2 from "./InputFormV2";
 import InputReadOnly from "./InputReadOnly";
 import SelectAddress from "./SelectAddress";
-
-import { useSelector } from "react-redux";
+import { path } from "../utils/constant"
+import { useDispatch, useSelector } from "react-redux";
 import ButtonComponent from "./ButtonComponent";
 import { dataArea, dataPrice } from "../utils/data";
-import { apiCreatePost } from "../services/portSercives";
+import { apiCreatePost, apiUpdatePost } from "../services/portServices";
 import toastMessage from "./toastMessage";
 import { useNavigate } from "react-router-dom";
 import validate from "../utils/valueDate/valueDate";
+import { setIsUpdate } from "../redux/appSlice/appSlice";
 
 function OverviewComponent({
   payload,
   setPayload,
   invalidFields,
   setInvalidFields,
+  isEdit = false,
+  setIsEdit
 }) {
   const navigate = useNavigate();
+  const dispatch = useDispatch()
   const [images, setImage] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const { categories } = useSelector((state) => state.category);
   const { user } = useSelector((state) => state.user);
+  const { dataEditPost } = useSelector((state) => state.app);
 
   const handleUploadImage = async (e) => {
     setIsLoading(true);
@@ -43,18 +48,24 @@ function OverviewComponent({
     setIsLoading(false);
     setPayload((prev) => ({
       ...prev,
-      images: JSON.stringify([...payload.images, ...images]),
+      images: JSON.stringify([...payload?.images, ...images]),
     }));
     setImage((prev) => [...prev, ...images]);
   };
 
+
+  useEffect(() => {
+    if (dataEditPost?.images?.image && isEdit) {
+      setImage(JSON.parse(dataEditPost?.images?.image))
+    }
+  }, [])
   const handleSummit = async () => {
     const priceCode =
-      dataPrice.find(
+      dataPrice?.find(
         (e) => e.min < payload?.priceNumber && e.max > payload?.priceNumber
       )?.code || "5ERTTTTTT";
     const areaCode =
-      dataArea.find(
+      dataArea?.find(
         (e) => e.min < payload?.areaNumber && e.max > payload?.areaNumber
       )?.code || "NRTTTTTTT";
     const category = categories?.find(
@@ -69,30 +80,46 @@ function OverviewComponent({
       },
       setInvalidFields
     );
-
-    console.log("check", check);
     if (!check) return;
-
-    const response = await apiCreatePost({
+    let finalPayload = {
       ...payload,
       priceCode,
       areaCode,
       category,
-    });
-    if (response.err === 1) {
-      toastMessage(response.message);
-    } else {
-      toastMessage(response.message);
-      navigate("/");
     }
+    if (isEdit) {
+      finalPayload.postId = dataEditPost?.id
+      finalPayload.overviewId = dataEditPost?.overviewId
+      finalPayload.attributesId = dataEditPost?.attributesId
+      finalPayload.labelCode = dataEditPost?.labelCode
+      finalPayload.imagesId = dataEditPost?.imagesId
+      const response = await apiUpdatePost(finalPayload)
+      if (response.err === 0) {
+        toastMessage(response.message);
+        setIsEdit(false)
+        dispatch(setIsUpdate())
+      } else {
+        toastMessage(response.message);
+      }
+    } else {
+      const response = await apiCreatePost(finalPayload);
+      if (response.err === 1) {
+        toastMessage(response.message);
+      } else {
+        toastMessage(response.message);
+        navigate(`/he-thong/${path.MANAGE_POST}`);
+      }
+    }
+
+
   };
-  console.log("payload", payload);
+
 
   return (
     <div className="flex flex-col gap-6 ">
       <h1 className="text-2xl mt-6 font-semibold">Thông tin mô tả</h1>
       <SelectAddress
-        value={payload?.category}
+        valueId={dataEditPost.categoryCode}
         label={"Loại chuyên mục"}
         options={categories}
         type={"categoryCode"}
@@ -100,6 +127,7 @@ function OverviewComponent({
       />
       <InputForm
         label={"Tiêu đề"}
+        value={payload.title}
         setValue={setPayload}
         name={"title"}
         invalidFields={invalidFields}
@@ -127,6 +155,7 @@ function OverviewComponent({
           ""
         )}
       </div>
+      <div className="w-1/2">
       <InputReadOnly
         label={"Thông tin liên hệ"}
         value={user.name}
@@ -140,7 +169,7 @@ function OverviewComponent({
         invalidFields={invalidFields}
         setInvalidFields={setInvalidFields}
         setValue={setPayload}
-      />
+        /></div>
       <InputFormV2
         label={"Giá cho thuê"}
         unit={"đồng"}
@@ -161,7 +190,7 @@ function OverviewComponent({
       />
       <SelectAddress
         setValue={setPayload}
-        value={payload?.target}
+        valueId={payload?.target}
         invalidFields={invalidFields}
         setInvalidFields={setInvalidFields}
         label={"Đối tượng cho thuê"}

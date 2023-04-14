@@ -8,7 +8,7 @@ const hashPassword = (password) => bcrypt.hashSync(password);
 const registerServices = async ({ name, password, phone }) =>
   new Promise(async (resolve, reject) => {
     try {
-      const user = await db.User.findOne({
+      const user = await db.User?.findOne({
         where: {
           phone,
         },
@@ -42,7 +42,7 @@ const registerServices = async ({ name, password, phone }) =>
 const loginServices = async ({ phone, password }) =>
   new Promise(async (resolve, reject) => {
     try {
-      const user = await db.User.findOne({
+      const user = await db.User?.findOne({
         where: {
           phone,
         },

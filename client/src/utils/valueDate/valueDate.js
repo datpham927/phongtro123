@@ -30,7 +30,7 @@ const validate = (valueForm, setInvalidFields) => {
         break;
       }
       case "password": {
-        if (e[1].length < 6) {
+        if (e[1]?.length < 6) {
           setInvalidFields((prev) => [
             ...prev,
             {
@@ -40,19 +40,6 @@ const validate = (valueForm, setInvalidFields) => {
           ]);
           error = false;
         }
-        break;
-      }
-      case "title": {
-        if (e[1].length < 20) error = false;
-
-        setInvalidFields((prev) => [
-          ...prev,
-          {
-            name: e[0],
-            message: "Tiêu đề ngắn quá",
-          },
-        ]);
-
         break;
       }
 

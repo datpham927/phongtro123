@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import ModalComponent from "../../components/ModalComponent";
 import SearchItemComponent from "../../components/SearchItemComponent";
 import { apiProvince } from "../../services/app";
-import { apiPost } from "../../services/portSercives";
+import { apiPost } from "../../services/portServices";
 import { setListPost } from "../../redux/postSlice/postSlice";
 import { useLocation } from "react-router-dom";
 
@@ -72,7 +72,6 @@ function Search() {
     } ${
       queries.area?.areaNumber ? `diện tích ${queries.area?.areaNumber}` : ""
     } `;
-    console.log(text);
   };
 
   return (

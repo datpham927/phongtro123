@@ -17,7 +17,6 @@ httpRequest.interceptors.request.use(
     config.headers = {
       token,
     };
-
     return config;
   },
   function (error) {

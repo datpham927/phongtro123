@@ -1,12 +1,17 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import { path } from "../utils/constant";
+import { convertVietnamese } from "../utils/format/convertVietnamese";
 
-function ItemComponent({ images, attributes, user, description, star, title }) {
+function ItemComponent({ images, attributes, user, description, star, title ,id}) {
   const [hoverHeart, setHoverHeart] = useState(false);
   return (
     <div className="flex border-solid border-t-[1px] border-red-custom py-4">
+        
       <div className="block w-[170px] h-[160px] relative  shrink-0 rounded-md overflow-hidden cursor-pointer">
+      <Link to={`${path.DETAIL}${convertVietnamese(title).replaceAll("/","-")}/${id}`}>
         <img src={images[0]} alt="" />
+      </Link>
         <span className="absolute   bg-[rgba(0,0,0,.5)] text-sm text-white px-1 rounded-md left-2 bottom-2">
           {images?.length} ảnh
         </span>
@@ -23,8 +28,10 @@ function ItemComponent({ images, attributes, user, description, star, title }) {
         </span>
       </div>
       <div className="ml-3 flex-1">
-        <Link className="text-orange-600 text-base font-semibold cursor-pointer hover:underline">
+        <Link to={`${path.DETAIL}${convertVietnamese(title).replaceAll("/",)}/${id}`} className="text-orange-600 text-base font-semibold cursor-pointer hover:underline">
           <span className="text-yellow-400 text-sm">
+            <ion-icon name="star"></ion-icon>
+            <ion-icon name="star"></ion-icon>
             <ion-icon name="star"></ion-icon>
             <ion-icon name="star"></ion-icon>
           </span>

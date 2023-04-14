@@ -13,5 +13,5 @@ export const menuManage = [
     id: 4,
     text: "Thông tin tài khoản",
     path: "/he-thong/thong-tin-tai-khoan",
-  },
+  }
 ];

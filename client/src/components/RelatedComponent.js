@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { apiNewPost } from "../services/portSercives";
+import { apiNewPost } from "../services/portServices";
 import SitemComponent from "./SitemComponent";
 const RelatedComponent = () => {
   const [newsPost, setNewsPost] = useState();

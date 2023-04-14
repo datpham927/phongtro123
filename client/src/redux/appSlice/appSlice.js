@@ -4,6 +4,7 @@ const initialState = {
   price: [],
   area: [],
   dataEditPost: [],
+  isUpload:false
 };
 
 const appSlice = createSlice({
@@ -19,9 +20,12 @@ const appSlice = createSlice({
     setDataEditPost: (state, action) => {
       state.dataEditPost = action.payload;
     },
+    setIsUpdate: (state) => {
+      state.isUpload = !state.isUpload;
+    },
   },
 }); 
 
-export const { setPrice, setArea, setDataEditPost } = appSlice.actions;
+export const { setPrice, setArea, setDataEditPost ,setIsUpdate} = appSlice.actions;
 
 export default appSlice.reducer;

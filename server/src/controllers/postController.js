@@ -27,7 +27,7 @@ const getNewPosts = async (req, res) => {
 
 const createNewPosts = async (req, res) => {
   try {
-    const { address, title, description, images, priceNumber, areaNumber } =
+    const { address, title, description, images, priceNumber, imagesId,areaNumber } =
       req.body;
     const { id } = req.user;
     if (
@@ -51,6 +51,8 @@ const createNewPosts = async (req, res) => {
   }
 };
 
+
+
 const getApiPostAdmin = async (req, res) => {
   try {
     const { id } = req.user;
@@ -67,4 +69,60 @@ const getApiPostAdmin = async (req, res) => {
   }
 };
 
-module.exports = { getAllPost, getNewPosts, createNewPosts, getApiPostAdmin };
+const updatePost = async (req, res) => {
+  try {
+    const { postId, overviewId, attributesId, labelCode, imagesId} =
+      req.body;
+      const userId = req.user.id;
+    if (
+      !userId||!postId|| !overviewId|| !attributesId|| !labelCode|| !imagesId
+    ) {
+      return res.status(400).json({
+        err: 1,
+        message: "input required",
+      });
+    }
+    const response = await services.updatePost(req.body);
+    res.json(response);
+  } catch (error) {
+    res.json(error);
+  }
+};
+
+const deletePost=async(req,res)=>{
+    try {
+         const {postId} =req.query
+         console.log(req.query)
+         const {id}=req.user
+         if(!postId||!id){
+           return res.state(400).json({
+            err:1,
+            message:"Delete failed"
+           })
+         }
+         const response = await services.deletePost(postId)
+         return res.state(200).json(response)
+    } catch (error) {
+      res.json(error)
+    }
+}
+const getDetailPost=async(req,res)=>{
+  try {
+       const {postId} =req.query
+
+       if(!postId){
+         return res.state(400).json({
+          err:1,
+          message:"Delete failed"
+         })
+       }
+       const response = await services.getDetailPost(postId)
+     res.json(response)
+  } catch (error) {
+    res.json(error)
+  }
+}
+
+
+module.exports = { getAllPost, getNewPosts, createNewPosts, getApiPostAdmin,
+                   updatePost ,deletePost,getDetailPost};

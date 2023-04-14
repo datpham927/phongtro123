@@ -1,9 +1,9 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import Search from "./Search";
-import ProvinceComponent from "../../components/ProvinceComponent";
-import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-
+import { useEffect } from "react";
+import {useLocation} from 'react-router-dom';
+import ProvinceComponent from "../../components/ProvinceComponent";
 import ItemNavbarComponent from "../../components/ItemNavbarComponent";
 import { apiArea, apiPrice } from "../../services/app";
 import IntroComponent from "../../components/IntroComponent";
@@ -14,12 +14,16 @@ import { setArea, setPrice } from "../../redux/appSlice/appSlice";
 import { getDetailUser } from "../../services/userServices";
 import { setUser } from "../../redux/userSlice/userSlice";
 import HeaderComponent from "../../components/HeaderComponent";
+import { path } from "../../utils/constant";
 
 function HomePage() {
   const dispatch = useDispatch();
   const { categories } = useSelector((state) => state.category);
   const { price, area } = useSelector((state) => state.app);
   const { isLogged } = useSelector((state) => state.auth);
+  const { isUpdateUser } = useSelector((state) => state.user);
+  const location=useLocation()
+
   useEffect(() => {
     const fetchApi = async () => {
       const areas = await apiArea();
@@ -37,17 +41,15 @@ function HomePage() {
         if (response.err === 0) {
           dispatch(setUser(response.user));
         }
-        console.log(response);
       };
       fetchApi();
     }
-  }, [isLogged]);
-
+  }, [isLogged,isUpdateUser]);
   return (
     <div className="text-2xl ">
       <HeaderComponent />
       <div className="w-[1100px] mx-auto">
-        <Search />
+    {  !location.pathname.includes(path.DETAIL)  && <Search /> }
         <ProvinceComponent />
         <div className="flex my-5 gap-4">
           <div className="w-[70%]">

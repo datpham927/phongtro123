@@ -7,7 +7,7 @@ const autoId = (value) => {
       .replace(/[\u0300-\u036f]/g, "")
       ?.replaceAll(" ", "") + "934998485447";
   let newCode = "";
-  let index = code.length;
+  let index = code?.length;
   for (let i = 0; i < 10; i++) {
     newCode += code[Math.floor(index / 2)];
     index /= 2;

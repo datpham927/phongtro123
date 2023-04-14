@@ -6,7 +6,7 @@ export const autoId = (value) => {
       .replace(/[\u0300-\u036f]/g, "")
       ?.replaceAll(" ", "") + "ffhdfh";
   let newCode = "";
-  let index = code.length;
+  let index = code?.length;
   for (let i = 0; i < 9; i++) {
     newCode += code[Math.floor(index / 2)];
     index /= 2;

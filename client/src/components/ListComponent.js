@@ -27,6 +27,7 @@ function ListComponent({ data }) {
         {data?.map((e) => (
           <ItemComponent
             key={e.id}
+            id={e.id}
             images={JSON.parse(e?.images?.image)}
             attributes={e?.attributes}
             user={e?.user}

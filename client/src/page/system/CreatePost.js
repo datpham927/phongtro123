@@ -1,24 +1,25 @@
 import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import AddressComponent from "../../components/AddressComponent";
 import OverviewComponent from "../../components/OverviewComponent";
-import { useSelector } from "react-redux";
 
-function CreatePost({ isEdit }) {
+
+function CreatePost({ isEdit,setIsEdit }) {
+  const dispatch=useDispatch()
   const { dataEditPost } = useSelector((state) => state?.app);
-  console.log(dataEditPost)
   const [payload, setPayload] = useState({
-    title: dataEditPost?.title || "",
-    priceNumber: dataEditPost?.priceNumber || "",
-    areaNumber: dataEditPost?.areaNumber || "",
-    images: dataEditPost?.images || "",
-    address: dataEditPost?.address || "",
-    description: dataEditPost?.description || "",
-    target: dataEditPost?.overview?.target || "",
-    province: dataEditPost?.overview?.area || "",
+    address:  "",
+    title: isEdit?dataEditPost?.title : "",
+    priceNumber: isEdit?dataEditPost?.priceNumber : "",
+    areaNumber:isEdit? dataEditPost?.areaNumber : "",
+    images: isEdit?dataEditPost?.images?.image : "",
+    description:isEdit? dataEditPost?.description : "",
+    target: isEdit?dataEditPost?.overview?.target : "",
+    province:isEdit? dataEditPost?.overview?.area : "", 
   });
   const [invalidFields, setInvalidFields] = useState([]);
-
-  return (
+ 
+  return (       
     <div className="px-7 flex flex-col">
       <div className="flex justify-center w-full border-solid border-b-[1px] border-gray-300">
         <h1 className="flex text-3xl py-3 text-blue-custom">
@@ -32,12 +33,15 @@ function CreatePost({ isEdit }) {
             setPayload={setPayload}
             invalidFields={invalidFields}
             setInvalidFields={setInvalidFields}
+            isEdit={isEdit}
           />
           <OverviewComponent
             payload={payload}
             setPayload={setPayload}
             invalidFields={invalidFields}
             setInvalidFields={setInvalidFields}
+            isEdit={isEdit}
+            setIsEdit={setIsEdit}
           />
         </div>
       </div>

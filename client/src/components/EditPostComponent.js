@@ -14,7 +14,7 @@ function EditPostComponent({ setIsEdit }) {
         onClick={(e) => e.stopPropagation()}
       >
         <div className=" bg-white overflow-y-scroll h-full p-2  ">
-          <CreatePost />
+          <CreatePost isEdit setIsEdit={setIsEdit}/>
         </div>
       </div>
     </div>

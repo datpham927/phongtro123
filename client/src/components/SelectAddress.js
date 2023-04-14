@@ -2,7 +2,7 @@ import { memo } from "react";
 
 function SelectAddress({
   label,
-  value,
+  valueId,
   options,
   type,
   setId,
@@ -17,6 +17,7 @@ function SelectAddress({
       : setValue((prev) => ({ ...prev, [type]: e?.target?.value }));
   };
 
+  //value nào của option == value của select thì hiển thị
   return (
     <div className={`flex flex-col w-1/2 gap-1 ${className} `}>
       {isLabel && (
@@ -25,7 +26,7 @@ function SelectAddress({
         </label>
       )}
       <select
-        value={value}
+        value={valueId}
         onChange={handleValue}
         id="select-address"
         className="outline-none bg-primary-bg text-sm border-solid border-[1px] border-gray-300 py-1 px-4 rounded-md"

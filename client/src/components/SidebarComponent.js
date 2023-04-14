@@ -2,7 +2,7 @@ import { useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
 import { menuManage } from "../utils/menuManage";
 
-function SidebarComponent() {
+function SidebarComponent() { 
   const { user } = useSelector((state) => state.user);
   return (
     <div className="flex flex-col p-3">
@@ -12,7 +12,7 @@ function SidebarComponent() {
           src={`${
             user?.avatar
               ? user?.avatar
-              : "https://tse4.mm.bing.net/th?id=OIP.oIV5BZLeIRubFFQP5fJ0PwHaHa&pid=Api&P=0"
+              : "https://phongtro123.com/images/default-user.png"
           }`}
           alt=""
         />
