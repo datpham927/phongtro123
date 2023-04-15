@@ -49,8 +49,10 @@ function HomePage() {
     <div className="text-2xl ">
       <HeaderComponent />
       <div className="w-[1100px] mx-auto">
-    {  !location.pathname.includes(path.DETAIL)  && <Search /> }
-        <ProvinceComponent />
+      {  location.pathname.includes(path.DETAIL)  &&    <Outlet />}
+    {  !location.pathname.includes(path.DETAIL)  && <>
+      <Search /> 
+      <ProvinceComponent />
         <div className="flex my-5 gap-4">
           <div className="w-[70%]">
             <Outlet />
@@ -72,6 +74,9 @@ function HomePage() {
             <RelatedComponent />  
           </div>
         </div>
+    
+    </>}
+      
         <IntroComponent />        
         <ContactComponent />
       </div>

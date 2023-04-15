@@ -1,3 +1,4 @@
+import { memo } from "react";
 import ButtonComponent from "./ButtonComponent";
 import ItemComponent from "./ItemComponent";
 
@@ -11,14 +12,6 @@ function ListComponent({ data }) {
           <ButtonComponent
             text="Mặc định"
             className={"bg-primary-bg !py-1 text-sm  "}
-          />
-          <ButtonComponent
-            text="Mới nhất"
-            className={"bg-primary-bg !py-1 text-sm "}
-          />
-          <ButtonComponent
-            text="Có video"
-            className={"bg-primary-bg !py-1 text-sm "}
           />
         </div>
       </div>
@@ -41,4 +34,4 @@ function ListComponent({ data }) {
   );
 }
 
-export default ListComponent;
+export default memo(ListComponent);

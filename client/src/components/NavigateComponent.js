@@ -7,10 +7,8 @@ import { useState } from "react";
 const { NavLink, useNavigate } = require("react-router-dom");
 
 const NavigateComponent = () => {
-  const navigate = useNavigate();
   const dispatch = useDispatch();
   const { categories } = useSelector((state) => state.category);
-
   const [fixedNavigate, setFixedNavigate] = useState(false);
 
   // useEffect(() => {
@@ -28,9 +26,8 @@ const NavigateComponent = () => {
 
   return (
     <div
-      className={`bg-blue-custom   ${
-        fixedNavigate ? "fixed top-0 w-full  " : ""
-      }`}
+      className={`bg-blue-custom   ${fixedNavigate ? "fixed top-0 w-full  " : ""
+        }`}
     >
       <div className="w-[1100px] mx-auto  flex items-center">
         <NavLink

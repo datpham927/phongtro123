@@ -7,7 +7,6 @@ import RentalMotelPage from "./page/public/RentalMotelPage";
 import RentalSpacePage from "./page/public/RentalSpacePage";
 import HomePage from "./page/public/HomePage";
 import { path } from "./utils/constant";
-import Search from "./page/public/Search";
 import Home from "./page/public/Home";
 import CreatePost from "./page/system/CreatePost";
 import System from "./page/system/System";

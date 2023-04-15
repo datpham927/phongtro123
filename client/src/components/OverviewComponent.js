@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { memo, useEffect, useState } from "react";
 import { BallTriangle } from "react-loader-spinner";
 import { getApiUploadImage } from "../services/app";
 import InputForm from "./InputForm";
@@ -156,19 +156,19 @@ function OverviewComponent({
         )}
       </div>
       <div className="w-1/2">
-      <InputReadOnly
-        label={"Thông tin liên hệ"}
-        value={user.name}
-        invalidFields={invalidFields}
-        setInvalidFields={setInvalidFields}
-        setValue={setPayload}
-      />
-      <InputReadOnly
-        label={"Điện thoại"}
-        value={user.phone}
-        invalidFields={invalidFields}
-        setInvalidFields={setInvalidFields}
-        setValue={setPayload}
+        <InputReadOnly
+          label={"Thông tin liên hệ"}
+          value={user.name}
+          invalidFields={invalidFields}
+          setInvalidFields={setInvalidFields}
+          setValue={setPayload}
+        />
+        <InputReadOnly
+          label={"Điện thoại"}
+          value={user.phone}
+          invalidFields={invalidFields}
+          setInvalidFields={setInvalidFields}
+          setValue={setPayload}
         /></div>
       <InputFormV2
         label={"Giá cho thuê"}
@@ -269,4 +269,4 @@ function OverviewComponent({
   );
 }
 
-export default OverviewComponent;
+export default memo(OverviewComponent);

@@ -5,6 +5,7 @@ import {
   useSearchParams,
 } from "react-router-dom";
 import PageNumberComponent from "./PageNumberComponent";
+import { memo } from "react";
 
 function PaginationComponent({ totalPage, currentPage = 1 }) {
   const navigate = useNavigate();
@@ -83,4 +84,4 @@ function PaginationComponent({ totalPage, currentPage = 1 }) {
   );
 }
 
-export default PaginationComponent;
+export default memo(PaginationComponent);

@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { memo, useEffect, useState } from "react";
 import SelectAddress from "./SelectAddress";
 import { getApiPublicDistrict, getApiPublicProvince } from "../services/app";
 import InputReadOnly from "./InputReadOnly";
@@ -17,26 +17,26 @@ function AddressComponent({
   const [provinceId, setProvinceId] = useState();
   const [districtId, setDistrictId] = useState("");
 
-  useEffect(()=>{
-    if(provinces?.length>0&&isEdit){
-      const arrAddress=dataEditPost?.address?.split(",")
-      const check= provinces?.some(e=>e?.province_name=== arrAddress[arrAddress?.length-1]?.trim())
-      if (check){
-        setProvinceId(provinces?.find(e=>e?.province_name=== arrAddress[arrAddress?.length-1]?.trim())?.province_id)
-  
-       }  
+  useEffect(() => {
+    if (provinces?.length > 0 && isEdit) {
+      const arrAddress = dataEditPost?.address?.split(",")
+      const check = provinces?.some(e => e?.province_name === arrAddress[arrAddress?.length - 1]?.trim())
+      if (check) {
+        setProvinceId(provinces?.find(e => e?.province_name === arrAddress[arrAddress?.length - 1]?.trim())?.province_id)
+
+      }
     }
-  },[provinces])
-  
-  useEffect(()=>{
-    if(districts?.length>0&&isEdit){
-      const arrAddress=dataEditPost?.address?.split(",")
-      const check=districts?.some(e=>e?.district_name=== arrAddress[arrAddress?.length-2]?.trim())
-       if (check){
-        setDistrictId(districts?.find(e=>e?.district_name=== arrAddress[arrAddress?.length-2]?.trim())?.district_id)
-       }  
+  }, [provinces])
+
+  useEffect(() => {
+    if (districts?.length > 0 && isEdit) {
+      const arrAddress = dataEditPost?.address?.split(",")
+      const check = districts?.some(e => e?.district_name === arrAddress[arrAddress?.length - 2]?.trim())
+      if (check) {
+        setDistrictId(districts?.find(e => e?.district_name === arrAddress[arrAddress?.length - 2]?.trim())?.district_id)
+      }
     }
-},[districts])
+  }, [districts])
   useEffect(() => {
     const fetchApi = async () => {
       const response = await getApiPublicProvince();
@@ -57,16 +57,14 @@ function AddressComponent({
   useEffect(() => {
     setPayload((prev) => ({
       ...prev,
-      address: `${
-        districtId
+      address: `${districtId
           ? districts?.find((e) => e?.district_id === districtId)
-              ?.district_name + ","
+            ?.district_name + ","
           : ""
-      } ${    
-        provinceId
+        } ${provinceId
           ? provinces?.find((e) => e?.province_id === provinceId)?.province_name
           : ""
-      }`,
+        }`,
       province: provinceId
         ? provinces?.find((e) => e?.province_id === provinceId)?.province_name
         : "",
@@ -97,23 +95,21 @@ function AddressComponent({
       <InputReadOnly
         invalidFields={invalidFields}
         setInvalidFields={setInvalidFields}
-        name="province"  
+        name="province"
         label={"Địa chỉ chính xác"}
-        value={ `${
-                districts?.some((e) => e?.district_id === districtId)
-                  ? districts?.find((e) => e?.district_id === districtId)
-                      ?.district_name + ","
-                  : ""
-              }${
-                provinceId
-                  ? provinces?.find((e) => e?.province_id === provinceId)
-                      ?.province_name
-                  : ""
-              }`
+        value={`${districts?.some((e) => e?.district_id === districtId)
+            ? districts?.find((e) => e?.district_id === districtId)
+              ?.district_name + ","
+            : ""
+          }${provinceId
+            ? provinces?.find((e) => e?.province_id === provinceId)
+              ?.province_name
+            : ""
+          }`
         }
       />
     </div>
   );
 }
 
-export default AddressComponent;
+export default memo(AddressComponent);

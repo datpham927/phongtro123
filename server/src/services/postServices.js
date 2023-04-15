@@ -73,14 +73,14 @@ const getAllPostService = async (limit, page, areaNumber, priceNumber, query) =>
     }
   });
 
-const getNewPosts = async () =>
+const getNewPosts = async (order, limit) =>
   new Promise(async (resolve, reject) => {
     try {
       const response = await db.Post?.findAll({
         raw: true,
         nest: true,
-        limit: 10,
-        attributes: ["address", "title", "star", "createdAt"],
+        limit: limit,
+        attributes: ["address", "title", "star", "createdAt", "id"],
         include: [
           {
             model: db.Attribute,
@@ -89,9 +89,8 @@ const getNewPosts = async () =>
           },
           { model: db.Image, as: "images", attributes: ["image"] },
         ],
-
         order: [
-          ["createdAt", "DESC"], // sắp xếp theo thứ tự giảm dần
+          order, // sắp xếp theo thứ tự giảm dần
         ],
       });
       resolve({
@@ -143,11 +142,11 @@ const createNewPosts = async (body, user) =>
         price:
           body?.priceNumber < 1
             ? `${new Intl.NumberFormat().format(
-                body?.priceNumber * 1000000
-              )} đồng/tháng`
+              body?.priceNumber * 1000000
+            )} đồng/tháng`
             : `${new Intl.NumberFormat().format(
-                body?.priceNumber
-              )} triệu/tháng`,
+              body?.priceNumber
+            )} triệu/tháng`,
         acreage: `${body?.areaNumber} m2`, //diện tích,
         hashtag,
         published: `${moment(new Date()).format("dd/mm/yyyy")} trước`,
@@ -278,7 +277,7 @@ const updatePost = async ({ postId, overviewId, attributesId, provinceCode, labe
         id: attributesId,
       }
     });
-    const response=await db.Overview.update({
+    const response = await db.Overview.update({
       area: body?.province,
       type: body?.category, //diện tích
       target: body?.target,
@@ -326,14 +325,14 @@ const updatePost = async ({ postId, overviewId, attributesId, provinceCode, labe
 
 const deletePost = async (postId) => new Promise(async (resolve, reject) => {
   try {
-    const response  =await db.Post.destroy({
+    const response = await db.Post.destroy({
       where: {
         id: postId
       }
     })
     resolve({
-      err: response==1? 0:1,
-      message: response==1?"Delete successfully":"Delete failed"
+      err: response == 1 ? 0 : 1,
+      message: response == 1 ? "Delete successfully" : "Delete failed"
     })
   } catch (error) {
     reject({
@@ -347,23 +346,24 @@ const deletePost = async (postId) => new Promise(async (resolve, reject) => {
 const getDetailPost = async (postId) => new Promise(async (resolve, reject) => {
   try {
     console.log(postId)
-    const response  =await db.Post.findOne({
+    const response = await db.Post.findOne({
       raw: true,
       nest: true,
       where: {
         id: postId
       },
       include: [
-        {  model: db.Attribute, as:"attributes"},
+        { model: db.Attribute, as: "attributes" },
         { model: db.Image, as: "images", attributes: ["image"] },
-        { model: db.Overview, as: "overview"},
-        { model: db.User, as: "user"},
+        { model: db.Overview, as: "overview" },
+        { model: db.User, as: "user" },
+        { model: db.Category, as: "category" },
       ],
     })
     resolve({
-      err: response ? 0:1,
-      message: response ?"Oke":"Error",
-      data:response
+      err: response ? 0 : 1,
+      message: response ? "Oke" : "Error",
+      data: response
     })
   } catch (error) {
     reject({

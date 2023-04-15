@@ -2,6 +2,7 @@ import { useDispatch } from "react-redux";
 import { createSearchParams, useLocation, useNavigate } from "react-router-dom";
 import { setPostFilterCode } from "../redux/postSlice/postSlice";
 import { convertVietnamese } from "../utils/format/convertVietnamese";
+import { memo } from "react";
 
 function ItemNavbarComponent({ title, content, isDouble, type }) {
   const navigate = useNavigate();
@@ -48,4 +49,4 @@ function ItemNavbarComponent({ title, content, isDouble, type }) {
   );
 }
 
-export default ItemNavbarComponent;
+export default memo(ItemNavbarComponent);

@@ -1,3 +1,5 @@
+import { memo } from "react";
+
 function ItemManagePost({
   id,
   avatar,
@@ -6,7 +8,7 @@ function ItemManagePost({
   expireDate,
   status,
   setIsEdit,
-  onClickEdit,onClickDelete
+  onClickEdit, onClickDelete
 }) {
   return (
     <ul className=" grid grid-cols-7 divide-x border-solid border-t-[1px] border-slate-200">
@@ -29,7 +31,7 @@ function ItemManagePost({
         >
           Edit
         </button>
-        <button className="px-2 bg-blue-500 text-white rounded-md" onClick={(e)=>{
+        <button className="px-2 bg-blue-500 text-white rounded-md" onClick={(e) => {
           e.preventDefault()
           onClickDelete()
         }}>
@@ -40,4 +42,4 @@ function ItemManagePost({
   );
 }
 
-export default ItemManagePost;
+export default memo(ItemManagePost);

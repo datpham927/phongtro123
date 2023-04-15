@@ -2,18 +2,17 @@ import { useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
 import { menuManage } from "../utils/menuManage";
 
-function SidebarComponent() { 
+function SidebarComponent() {
   const { user } = useSelector((state) => state.user);
   return (
     <div className="flex flex-col p-3">
       <div className="flex items-center">
         <img
           className="w-[50px] h-[50px] rounded-full"
-          src={`${
-            user?.avatar
-              ? user?.avatar
-              : "https://phongtro123.com/images/default-user.png"
-          }`}
+          src={`${user?.avatar
+            ? user?.avatar
+            : "https://phongtro123.com/images/default-user.png"
+            }`}
           alt=""
         />
 

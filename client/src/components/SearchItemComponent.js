@@ -1,3 +1,5 @@
+import { memo } from "react";
+
 function SearchItemComponent({ title, icon, onClick, defaultText }) {
   return (
     <div
@@ -5,9 +7,8 @@ function SearchItemComponent({ title, icon, onClick, defaultText }) {
       className={`flex items-center justify-between text-sm font-medium fon bg-white   p-2 rounded-md hover:shadow-custom`}
     >
       <span
-        className={`overflow-hidden overflow-ellipsis whitespace-nowrap ${
-          !!title ? "text-black font-medium" : "text-gray-400"
-        } `}
+        className={`overflow-hidden overflow-ellipsis whitespace-nowrap ${!!title ? "text-black font-medium" : "text-gray-400"
+          } `}
       >
         {title || defaultText}
       </span>
@@ -16,4 +17,4 @@ function SearchItemComponent({ title, icon, onClick, defaultText }) {
   );
 }
 
-export default SearchItemComponent;
+export default memo(SearchItemComponent);

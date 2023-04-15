@@ -1,3 +1,5 @@
+import { memo } from "react";
+
 function ProvinceItemComponent({ title, image }) {
   return (
     <div className="w-[190px] text-center bg-white rounded-md overflow-hidden shadow-custom mx-[10px]">
@@ -7,4 +9,4 @@ function ProvinceItemComponent({ title, image }) {
   );
 }
 
-export default ProvinceItemComponent;
+export default memo(ProvinceItemComponent);

@@ -1,17 +1,16 @@
+import { memo } from "react";
 import { useSelector } from "react-redux";
 
 function UserComponent() {
   const { user } = useSelector((state) => state.user);
-
   return (
     <div className="flex items-center">
       <img
         className="w-[40px] h-[40px] rounded-full"
-        src={`${
-          user?.avatar
-            ? user?.avatar
-            : "https://phongtro123.com/images/default-user.png"
-        }`}
+        src={`${user?.avatar
+          ? user?.avatar
+          : "https://phongtro123.com/images/default-user.png"
+          }`}
         alt=""
       />
 
@@ -33,4 +32,4 @@ function UserComponent() {
   );
 }
 
-export default UserComponent;
+export default memo(UserComponent);

@@ -1,3 +1,4 @@
+import { memo } from "react";
 import { Link } from "react-router-dom";
 
 function ButtonComponent({ text, className, link, onClick }) {
@@ -10,8 +11,8 @@ function ButtonComponent({ text, className, link, onClick }) {
       {text}
     </Link>
 
-    
+
   );
 }
 
-export default ButtonComponent;
+export default memo(ButtonComponent);

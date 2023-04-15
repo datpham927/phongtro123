@@ -1,3 +1,5 @@
+import { memo } from "react";
+
 function InputComponent({ placeholder, type, onChange, name, invalidFields }) {
   return (
     <>
@@ -18,4 +20,4 @@ function InputComponent({ placeholder, type, onChange, name, invalidFields }) {
   );
 }
 
-export default InputComponent;
+export default memo(InputComponent);

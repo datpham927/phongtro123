@@ -4,6 +4,7 @@ import { convertVietnamese } from "../utils/format/convertVietnamese";
 import { textInfo } from "../utils/constant";
 import ButtonComponent from "./ButtonComponent";
 import { memo } from "react";
+import { starToArr } from "../utils/starToArr";
 const IntroComponent = () => {
   const { categories } = useSelector((state) => state.category);
   return (
@@ -43,11 +44,9 @@ const IntroComponent = () => {
       <h3 className="font-bold text-base py-2">{textInfo.price}</h3>
       <div className="flex items-center justify-center gap-1">
         <span className="text-yellow-400">
-          <ion-icon name="star"></ion-icon>
-          <ion-icon name="star"></ion-icon>
-          <ion-icon name="star"></ion-icon>
-          <ion-icon name="star"></ion-icon>
-          <ion-icon name="star"></ion-icon>
+          <span className="text-yellow-400 text-sm flex shrink-0">
+            {starToArr(5).map(() => <ion-icon name="star"></ion-icon>)}
+          </span>
         </span>
       </div>
       <p className="text-gray-600 italic text-center  text-base">
